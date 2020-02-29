@@ -8,6 +8,9 @@ import android.util.Log;
 
 public class MyMediaRecorder {
 
+
+    private static final String TAG = "MyMediaRecorder";
+
     public boolean isRecording = false;
     private AudioRecord mAudioRecord;
     private int mSampleRate = 16000;//采样率
@@ -36,7 +39,7 @@ public class MyMediaRecorder {
             //AudioRecord对象实例化
             mAudioRecord = new AudioRecord(mAudioSource, mSampleRate, mChannelCount, audioFormat, mMinBufferSize);
             isRecording = true;
-            Log.d("zq", "开始录音");
+            Log.d(TAG, "开始录音");
             return true;
         } catch (IllegalStateException e) {
             stopRecording();
@@ -46,11 +49,14 @@ public class MyMediaRecorder {
         return false;
     }
 
+    /**
+     * 停止录音
+     */
     public void stopRecording() {
         if (mAudioRecord != null) {
             if (isRecording) {
                 try {
-                    Log.d("zq", "停止录音");
+                    Log.d(TAG, "停止录音");
                     mAudioRecord.stop();
                     mAudioRecord.release();
                 } catch (Exception e) {
